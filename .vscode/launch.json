@@ -1,0 +1,12 @@
+{
+    "version": "0.1.0",
+    "configurations": [
+        {
+            "name": "Start",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal"
+        }
+    ]
+}
