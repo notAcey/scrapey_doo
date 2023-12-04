@@ -2,25 +2,22 @@ import os
 from Classes.PCGarage_Scraper import PCGarage_Scraper
 from Classes.OLX_Scraper import OLX_Scraper
 from Classes.Altex_Scraper import Altex_Scraper
-from Modules.Repository_Module import Repo
+from Modules.Function_Module import Func
 
 class UI:
     def __init__(self) -> None:
         self.scraper = None
         self.get_scraper()
-        self.repo = Repo(self.scraper.product_list)
+        self.func = Func(self.scraper.product_list)
         self.start_app()
 
     def get_scraper(self):
-        """
-        Gets the scraper depending on the website domain
-        """
         os.system('cls')
         self.scraper = None
         while self.scraper is None:
             link = input('Enter the link to the page with the products or "exit" to close: \n> ')
             if 'altex.ro' in link:
-                try: # The scraper doesn't work for certain pages because of the website's structure
+                try:
                     self.scraper = Altex_Scraper(link)
                 except Exception as e:
                     print(e)
@@ -38,11 +35,7 @@ class UI:
                 print('No scraper for this site yet')
 
     def start_app(self):
-        """
-        Main menu of the app
-        """
         while True:
-            # os.system('cls')
             self.print_product_list()
             print('\n---------------------Menu---------------------\n')
             print('Currently scraping: ' + self.scraper.name)
@@ -63,11 +56,11 @@ class UI:
                 print('0. Back')
                 choice = input('> ')
                 if choice == '1':
-                    self.repo.sort_by_name()
+                    self.func.sort_by_name()
                 elif choice == '2':
-                    self.repo.sort_by_price()
+                    self.func.sort_by_price()
                 elif choice == '3':
-                    self.repo.sort_by_discount()
+                    self.func.sort_by_discount()
                 elif choice == '0':
                     continue
                 else:
@@ -84,36 +77,36 @@ class UI:
                 choice = input('> ')
                 if choice == '1':
                     name = input('Enter the name: \n> ')
-                    self.repo.product_list = self.repo.filter_by_name(name)
+                    self.func.product_list = self.func.filter_by_name(name)
                 elif choice == '2':
                     price = float(input('Enter the price: \n> '))
-                    self.repo.product_list = self.repo.filter_by_price(price)
+                    self.func.product_list = self.func.filter_by_price(price)
                 elif choice == '3':
                     discount = int(input('Enter the discount: \n> '))
-                    self.repo.product_list = self.repo.filter_by_discount(discount)
+                    self.func.product_list = self.func.filter_by_discount(discount)
                 elif choice == '4':
                     min_price = float(input('Enter the minimum price: \n> '))
                     max_price = float(input('Enter the maximum price: \n> '))
-                    self.repo.product_list = self.repo.filter_by_price_range(min_price, max_price)
+                    self.func.product_list = self.func.filter_by_price_range(min_price, max_price)
                 elif choice == '5':
                     min_discount = int(input('Enter the minimum discount: \n> '))
                     max_discount = int(input('Enter the maximum discount: \n> '))
-                    self.repo.product_list = self.repo.filter_by_discount_range(min_discount, max_discount)
+                    self.func.product_list = self.func.filter_by_discount_range(min_discount, max_discount)
                 elif choice == '0':
                     continue
                 else:
                     print('Invalid choice')
             elif choice == '3':
-                self.repo.product_list = self.repo.full_list
+                self.func.product_list = self.func.full_list
             elif choice == '4':
                 self.get_scraper()
-                self.repo = Repo(self.scraper.product_list)
+                self.func = Func(self.scraper.product_list)
             elif choice == '5':
                 filename = input('Enter the filename (without extension): \n> ')
-                self.repo.export_to_excel(filename)
+                self.func.export_to_excel(filename)
             elif choice == '6':
                 filename = input('Enter the filename (without extension): \n> ')
-                self.repo.export_to_csv(filename)
+                self.func.export_to_csv(filename)
             elif choice == '0':
                 exit()
             else:
@@ -121,5 +114,5 @@ class UI:
 
     def print_product_list(self) -> None:
         print('---------------------Product List---------------------')
-        for product in self.repo.product_list:
+        for product in self.func.product_list:
             print(product)
