@@ -38,7 +38,7 @@ class PCGarage_Scraper:
             name = data.get('title').strip()
             link = data.get('href')
             price = float(product.find('p', {'class': 'price'}).text.replace(' RON', '').replace(' ', '').replace('.', '').replace(',', '.'))
-            product_list.append(Product(name, price, None, link))
+            product_list.append(Product(name, price, "N/A", link))
         return product_list
     
     def get_next_page_link(self, pcgarage_link: str) -> str:

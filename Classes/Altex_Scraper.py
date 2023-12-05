@@ -35,9 +35,16 @@ class Altex_Scraper():
     
     def get_product_list(self, raw_product_list: list) -> list:
         product_list = []
-        for product in raw_product_list:
-            name = product.find('span', {'class': 'Product-name Heading leading-20 text-sm min-h-[68px] line-clamp-3 max-h-[68px]'}).text.strip()
-            prices = product.find_all('span', {'class': 'Price-int leading-none'})
+        for product_li in raw_product_list:
+            product_div = product_li.find('div', {'class': 'Product'})
+
+            in_stock = product_div.find(string="in stoc")
+            if not in_stock:
+                continue
+
+            name = product_div.find('span', {'class': 'Product-name Heading leading-20 text-sm min-h-[68px] line-clamp-3 max-h-[68px]'}).text.strip()
+
+            prices = product_div.find_all('span', {'class': 'Price-int leading-none'})
             if len(prices) == 2:
                 price = float(prices[1].text.strip().replace('.', '').replace(',', '.'))
                 full_price = float(prices[0].text.strip().replace('.', '').replace(',', '.'))
@@ -45,9 +52,13 @@ class Altex_Scraper():
                 price = float(prices[0].text.strip().replace('.', '').replace(',', '.'))
                 full_price = price
 
-            link = "https://altex.ro/" + product.get('href')
+            product_link = product_div.find('a')['href']
+            link = "https://altex.ro" + product_link
+
             product_list.append(Product(name, price, full_price, link))
+
         return product_list
+
     
     def get_next_page_link(self, altex_link: str) -> str:
         url = altex_link
