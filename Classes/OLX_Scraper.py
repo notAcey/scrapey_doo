@@ -30,10 +30,19 @@ class OLX_Scraper:
     def get_product_list(self, raw_product_list: list) -> list:
         product_list = []
         for product in raw_product_list:
-            name = product.find('h6', {'class': 'css-16v5mdi er34gjf0'}).text.strip()
-            price = float(product.find('p', {'data-testid': 'ad-price'}).text.replace('€', '').replace('Prețul e negociabil', '').replace('Schimb', '0').replace(' ', '').replace(',', '.'))
-            link = product.get('href')
-            product_list.append(Product(name, price, None, link))
+            try:
+                name = product.find('h6', {'class': 'css-16v5mdi er34gjf0'}).text.strip()
+                price_text = product.find('p', {'data-testid': 'ad-price'}).text.strip()
+                if 'schimb' in price_text.lower():
+                    price = "Schimb"
+                else:
+                    cleaned_price = price_text.replace(' ', '').replace(',', '.')
+                    cleaned_price = ''.join(filter(lambda x: x.isdigit() or x == '.', cleaned_price))
+                    price = float(cleaned_price) if cleaned_price else 0.0
+                link = "https://www.olx.ro" + product.get('href')
+                product_list.append(Product(name, price, None, link))
+            except (AttributeError, ValueError) as e:
+                print(f"Error processing product: {e}")
         return product_list
 
     def get_next_page_link(self, olx_link: str) -> str:
