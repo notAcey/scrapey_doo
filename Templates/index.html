@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrapey-Doo</title>
+    <link rel="stylesheet" href="/static/style/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="/static/js/script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="urlInput" placeholder="Introduceți URL-ul site-ului"
+                        aria-label="URL site-ului" aria-describedby="button-addon">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary" type="button" id="button-addon"onclick="startScraping()">Scrape</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="buttons">
+        <button type="button" class="btn btn-primary btn-sm" onclick="sortProducts('name')">Sortează după Nume</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="sortProducts('price')">Sortează după Preț</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="sortProducts('discount')">Sortează după Discount</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="filterProducts('name', /* valoarea pentru filtru */)">Filtrează după Nume</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="filterProducts('price', /* valoarea pentru filtru */)">Filtrează după Preț</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="filterProducts('discount', /* valoarea pentru filtru */)">Filtrează după Discount</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="clearFilters()">Șterge Filtrele</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="exportProducts('csv')">Exportă ca CSV</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="exportProducts('excel')">Exportă ca Excel</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="startScraping()">Scrape pe un Alt Link</button>
+    </div>
+    <br>
+    <div id="productList"></div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <div id="pagination">
+        <button type="button" class="btn btn-primary" onclick="loadPage(currentPage - 1)">Anterior</button>
+        <button type="button" class="btn btn-primary" onclick="loadPage(currentPage + 1)">Următor</button>
+    </div>
+</body>
+</html>

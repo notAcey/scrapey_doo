@@ -1,0 +1,19 @@
+├── .vscode
+│  └── launch.json
+├── app.py
+├── Classes
+│  ├── Altex_Scraper.py
+│  ├── OLX_Scraper.py
+│  ├── PCGarage_Scraper.py
+│  └── Product_Class.py
+├── main.py
+├── Modules
+│  ├── Function_Module.py
+│  └── UI_Module.py
+├── Scripts
+│  ├── js
+│  │  └── script.js
+│  └── style
+│    └── style.css
+└── Templates
+  └── index.html
