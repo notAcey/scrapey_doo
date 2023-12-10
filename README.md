@@ -16,25 +16,25 @@ A web scraping tool developed in Python, designed to efficiently extract product
 ## Running the App
 * [Python 3](https://www.python.org/downloads/) is required to run the app.
 * After opening the project in your preffered IDE, you will have to run the next commands:
-```bash
+```
   pip install requests
 ```
-```bash
+```
   pip install selenium
 ```
-```bash
+```
   pip install pandas
 ```
-```bash
+```
   pip install bs4
 ```
-```bash
+```
   pip install openpyxl
 ```
-```bash
+```
   pip install flask
 ``` 
-```bash
+```
   npm i -g @structure-codes/cli # Optional(if you want to see the structure of the project in a .tree file)
 ```
 * Run the 'app.py' file: ```bash python app.py ``` in the terminal of the IDE (Visual Studio Code) or any other terminal and paste the http link of the [**supported website**](#currently-supported-websites) you want to scrape.
