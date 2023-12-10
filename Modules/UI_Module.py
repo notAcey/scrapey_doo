@@ -1,4 +1,3 @@
-import os
 from Classes.PCGarage_Scraper import PCGarage_Scraper
 from Classes.OLX_Scraper import OLX_Scraper
 from Classes.Altex_Scraper import Altex_Scraper
