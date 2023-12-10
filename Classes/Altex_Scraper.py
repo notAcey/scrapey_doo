@@ -1,4 +1,3 @@
-import time
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from Classes.Product_Class import Product
